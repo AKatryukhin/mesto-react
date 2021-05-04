@@ -3,7 +3,7 @@ function Main() {
     <>
       <main className='content container'>
         <section className='profile content__profile container'>
-          <div className='profile__avatar'>
+          <div className='profile__avatar' onClick={handleEditAvatarClick}>
             <img className='profile__image' src='' alt='Картинка Аватар' />
           </div>
           <div className='profile__info'>
@@ -13,6 +13,7 @@ function Main() {
                 type='button'
                 className='profile__edit'
                 aria-label='Кнопка открытия окна редактирования профиля'
+                onClick={handleEditProfileClick}
               ></button>
             </div>
             <p className='profile__job'>Исследователь океана</p>
@@ -21,6 +22,7 @@ function Main() {
             className='profile__add'
             type='button'
             aria-label='Кнопка добавления фото'
+            onClick={handleAddPlaceClick}
           ></button>
         </section>
         <section
@@ -30,5 +32,21 @@ function Main() {
       </main>
     </>
   );
+
+
+function handleEditAvatarClick() {
+  document.querySelector('.popup_type_avatar').classList.add('popup_opened');
+ 
 }
+
+function handleEditProfileClick() {
+  document.querySelector('.popup_type_prof').classList.add('popup_opened');
+}
+
+function handleAddPlaceClick() {
+  document.querySelector('.popup_type_place').classList.add('popup_opened');
+}
+
+}
+
 export default Main;
