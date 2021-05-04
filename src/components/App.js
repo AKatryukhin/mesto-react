@@ -53,7 +53,7 @@ function App() {
         </PopupWithForm>
 
 
-        {/* <section className="popup popup_type_prof">
+        {/* /* <section className="popup popup_type_prof">
             <div className="popup__container">
                 <button type="button" className="popup__close" aria-label="Кнопка для закрытия окна редактирования"></button>
                 <h2 className="popup__title">Редактировать профиль</h2>
@@ -135,12 +135,6 @@ function App() {
     </body>
     </>
   );
-
-
-
-
-
-
 }
 
 export default App;
