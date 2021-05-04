@@ -1,9 +1,11 @@
-function Main() {
+import App from './App.js';
+
+function Main(props) {
   return (
     <>
       <main className='content container'>
         <section className='profile content__profile container'>
-          <div className='profile__avatar' onClick={handleEditAvatarClick}>
+          <div className='profile__avatar' onClick={props.onEditAvatar}>
             <img className='profile__image' src='' alt='Картинка Аватар' />
           </div>
           <div className='profile__info'>
@@ -13,7 +15,7 @@ function Main() {
                 type='button'
                 className='profile__edit'
                 aria-label='Кнопка открытия окна редактирования профиля'
-                onClick={handleEditProfileClick}
+                onClick={props.onEditProfile}
               ></button>
             </div>
             <p className='profile__job'>Исследователь океана</p>
@@ -22,7 +24,7 @@ function Main() {
             className='profile__add'
             type='button'
             aria-label='Кнопка добавления фото'
-            onClick={handleAddPlaceClick}
+            onClick={props.onAddPlace}
           ></button>
         </section>
         <section
@@ -33,19 +35,6 @@ function Main() {
     </>
   );
 
-
-function handleEditAvatarClick() {
-  document.querySelector('.popup_type_avatar').classList.add('popup_opened');
- 
-}
-
-function handleEditProfileClick() {
-  document.querySelector('.popup_type_prof').classList.add('popup_opened');
-}
-
-function handleAddPlaceClick() {
-  document.querySelector('.popup_type_place').classList.add('popup_opened');
-}
 
 }
 
