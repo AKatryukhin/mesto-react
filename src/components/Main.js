@@ -1,5 +1,3 @@
-import App from './App.js';
-
 function Main(props) {
   return (
     <>
