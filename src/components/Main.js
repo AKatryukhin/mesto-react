@@ -5,6 +5,7 @@ function Main(props) {
 const [userName, setUserName] = React.useState('');
 const [userDescription, setUserDescription] = React.useState('');
 const [userAvatar, setUserAvatar] = React.useState('');
+const [cards, setCards] = React.useState([]);
 
 React.useEffect(() => {
   api.getProfileInfo()
@@ -14,6 +15,17 @@ React.useEffect(() => {
   setUserAvatar(res.avatar);
 })
 .catch((err) => console.log(err)); 
+});
+
+React.useEffect(() => {
+api.getInitialCards()
+  .then((res) => {
+  setCards(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 });
 
 return (
@@ -45,7 +57,25 @@ return (
         <section
           className='galery content__galery'
           aria-label='Фото мест'
-        ></section>
+        >
+        {cards.map((item) => {
+          return (
+            <article className="photo" key={item._id}>
+                <figure className="photo__element">
+                    <button className="photo__trash" type="button" aria-label="Кнопка для Удаления"></button>
+                    <img src={item.link} alt={item.name} className="photo__image" />
+                    <figcaption className="photo__title">
+                        <h2 className="photo__name">{item.name}</h2>
+                        <div className="photo__like-container">
+                            <button className="photo__like" type="button" aria-label="Кнопка для Лайков"></button>
+                            <p className="photo__like-total">{item.likes.length}</p>
+                        </div>
+                    </figcaption>
+                </figure>
+             </article>
+          )}
+          )}
+          </section>
       </main>
     </>
   );
