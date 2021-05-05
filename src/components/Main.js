@@ -7,26 +7,16 @@ const [userDescription, setUserDescription] = React.useState('');
 const [userAvatar, setUserAvatar] = React.useState('');
 const [cards, setCards] = React.useState([]);
 
-React.useEffect(() => {
-  api.getProfileInfo()
-.then((res) => {
-  setUserName(res.name);
-  setUserDescription(res.about);
-  setUserAvatar(res.avatar);
-})
-.catch((err) => console.log(err)); 
-});
-
-React.useEffect(() => {
-api.getInitialCards()
-  .then((res) => {
-  setCards(res);
+Promise.all([api.getInitialCards(), api.getProfileInfo()])
+  .then(([cardsArray, userData]) => {
+    setUserName(userData.name);
+    setUserDescription(userData.about);
+    setUserAvatar(userData.avatar);
+    setCards(cardsArray);
   })
   .catch((err) => {
     console.log(err);
   });
-
-});
 
 return (
     <>
