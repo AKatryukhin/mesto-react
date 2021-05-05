@@ -3,14 +3,19 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
-// import ImagePopup from './ImagePopup.js';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
     
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState(false);
 
+    function handleCardClick(card) {
+        setSelectedCard(card);
+    }
+    
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
       }
@@ -23,19 +28,27 @@ function App() {
       }
 
       function closeAllPopups() {
-          if(isEditProfilePopupOpen) {
+        if(selectedCard) {
+            setSelectedCard(false); 
+          }
+          else if(isEditProfilePopupOpen) {
         handleEditProfileClick();
           } else if(isAddPlacePopupOpen) {
         handleAddPlaceClick();
-          } else if(isEditAvatarPopupOpen)
+          } else if(isEditAvatarPopupOpen) {
         handleEditAvatarClick();
-      }
+         } 
+        }
+    
 
   return (
       <>
         <div className="page">
         <Header />
-        <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+        <Main onEditAvatar={handleEditAvatarClick}
+         onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+           onCardClick={handleCardClick}/>
         <Footer />
         <PopupWithForm name="prof_form" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fild">
@@ -59,6 +72,11 @@ function App() {
                         <span className="popup__input-error avatar-link-input-error"></span>
                     </fieldset>
         </PopupWithForm>
+        <ImagePopup isOpen={selectedCard}
+         onClose={closeAllPopups} 
+         card={selectedCard}
+          link={selectedCard.link} 
+          name={selectedCard.name}/>
 
         <section className="popup popup_type_confirm">
             <div className="popup__container">

@@ -51,7 +51,12 @@ return (
         >
         {cards.map((card) => {
           return (
-            <Card name ={card.name} link ={card.link} likes={card.likes} key={card._id}/>
+            <Card name ={card.name}
+             link ={card.link}
+              likes={card.likes}
+               key={card._id}
+                onCardClick ={props.onCardClick}
+                card={card}/>
           )}
           )}
           </section>
