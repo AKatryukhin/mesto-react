@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../utils/Api.js';
+import Card from './Card.js';
 
 function Main(props) {
 const [userName, setUserName] = React.useState('');
@@ -48,29 +49,15 @@ return (
           className='galery content__galery'
           aria-label='Фото мест'
         >
-        {cards.map((item) => {
+        {cards.map((card) => {
           return (
-            <article className="photo" key={item._id}>
-                <figure className="photo__element">
-                    <button className="photo__trash" type="button" aria-label="Кнопка для Удаления"></button>
-                    <img src={item.link} alt={item.name} className="photo__image" />
-                    <figcaption className="photo__title">
-                        <h2 className="photo__name">{item.name}</h2>
-                        <div className="photo__like-container">
-                            <button className="photo__like" type="button" aria-label="Кнопка для Лайков"></button>
-                            <p className="photo__like-total">{item.likes.length}</p>
-                        </div>
-                    </figcaption>
-                </figure>
-             </article>
+            <Card name ={card.name} link ={card.link} likes={card.likes} key={card._id}/>
           )}
           )}
           </section>
       </main>
     </>
   );
-
-
 }
 
 export default Main;
