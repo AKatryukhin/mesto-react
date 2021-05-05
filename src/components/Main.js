@@ -1,14 +1,31 @@
+import React from 'react';
+import api from '../utils/Api.js';
+
 function Main(props) {
-  return (
+const [userName, setUserName] = React.useState('');
+const [userDescription, setUserDescription] = React.useState('');
+const [userAvatar, setUserAvatar] = React.useState('');
+
+React.useEffect(() => {
+  api.getProfileInfo()
+.then((res) => {
+  setUserName(res.name);
+  setUserDescription(res.about);
+  setUserAvatar(res.avatar);
+})
+.catch((err) => console.log(err)); 
+});
+
+return (
     <>
       <main className='content container'>
         <section className='profile content__profile container'>
           <div className='profile__avatar' onClick={props.onEditAvatar}>
-            <img className='profile__image' src='' alt='Картинка Аватар' />
+            <img className='profile__image' src={userAvatar} alt='Картинка Аватар' />
           </div>
           <div className='profile__info'>
             <div className='profile__editcase'>
-              <h1 className='profile__name'>Жак-Ив Кусто</h1>
+              <h1 className='profile__name'>{userName}</h1>
               <button
                 type='button'
                 className='profile__edit'
@@ -16,7 +33,7 @@ function Main(props) {
                 onClick={props.onEditProfile}
               ></button>
             </div>
-            <p className='profile__job'>Исследователь океана</p>
+            <p className='profile__job'>{userDescription}</p>
           </div>
           <button
             className='profile__add'
