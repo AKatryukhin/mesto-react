@@ -10,11 +10,10 @@ function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-    
+
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
       }
-      
       function handleEditProfileClick() {
         setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
       }
@@ -22,7 +21,15 @@ function App() {
       function handleAddPlaceClick() {
         setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
       }
-   
+
+      function closeAllPopups() {
+          if(isEditProfilePopupOpen) {
+        handleEditProfileClick();
+          } else if(isAddPlacePopupOpen) {
+        handleAddPlaceClick();
+          } else if(isEditAvatarPopupOpen)
+        handleEditAvatarClick();
+      }
 
   return (
       <>
@@ -30,7 +37,7 @@ function App() {
         <Header />
         <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
         <Footer />
-        <PopupWithForm name="prof_form" title="Редактировать профиль" isOpen={isEditProfilePopupOpen}>
+        <PopupWithForm name="prof_form" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fild">
                         <input type="text" className="popup__input popup__input_type_name" id="name-input" name="name" value="" required minLength="2" maxLength="40" />
                         <span className="popup__input-error name-input-error"></span>
@@ -38,7 +45,7 @@ function App() {
                         <span className="popup__input-error about-input-error"></span>
                     </fieldset>
         </PopupWithForm>
-        <PopupWithForm name="place_form" title="Новое место" isOpen={isAddPlacePopupOpen}>
+        <PopupWithForm name="place_form" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fild">
                         <input type="text" className="popup__input popup__input_type_name" id="place-input" name="name" value="" placeholder="Название" required minLength="2" maxLength="30" />
                         <span className="popup__input-error place-input-error"></span>
@@ -46,7 +53,7 @@ function App() {
                         <span className="popup__input-error link-input-error"></span>
                     </fieldset>
         </PopupWithForm>
-        <PopupWithForm name="avatar_form" title="Обновить аватар" isOpen={isEditAvatarPopupOpen}>
+        <PopupWithForm name="avatar_form" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
         <fieldset className="popup__fild">
                         <input type="url" className="popup__input popup__input_type_descr popup__input-avatar" id="avatar-link-input" name="link" value="" placeholder="Ссылка на аватар" required />
                         <span className="popup__input-error avatar-link-input-error"></span>
