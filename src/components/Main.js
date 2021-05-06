@@ -8,6 +8,8 @@ const [userDescription, setUserDescription] = React.useState('');
 const [userAvatar, setUserAvatar] = React.useState('');
 const [cards, setCards] = React.useState([]);
 
+React.useEffect(() => {
+
 Promise.all([api.getInitialCards(), api.getProfileInfo()])
   .then(([cardsArray, userData]) => {
     setUserName(userData.name);
@@ -18,6 +20,7 @@ Promise.all([api.getInitialCards(), api.getProfileInfo()])
   .catch((err) => {
     console.log(err);
   });
+}, []); 
 
 return (
     <>
@@ -63,6 +66,7 @@ return (
       </main>
     </>
   );
+
 }
 
 export default Main;
