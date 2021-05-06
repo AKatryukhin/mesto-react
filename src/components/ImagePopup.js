@@ -1,7 +1,11 @@
 function ImagePopup(card) {
   return (
-<>
-      <section className={`popup popup_type_image ${card.isOpen ? 'popup_opened' : ''}`} >
+    <>
+      <section
+        className={`popup popup_type_image ${
+          card.isOpen ? 'popup_opened' : ''
+        }`}
+      >
         <div className='popup__container-image'>
           <button
             type='button'
@@ -15,9 +19,9 @@ function ImagePopup(card) {
               <h2 className='popup__name-image'>{card.name}</h2>
             </figcaption>
           </figure>
-          </div>
-        </section> 
-</>
+        </div>
+      </section>
+    </>
   );
 }
-export default ImagePopup
+export default ImagePopup;
