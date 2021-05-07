@@ -10,11 +10,11 @@ function Main({onEditAvatar,onAddPlace,onEditProfile,onCardClick}) {
 
   React.useEffect(() => {
     Promise.all([api.getInitialCards(), api.getProfileInfo()])
-      .then(([cardsArray, userData]) => {
+      .then(([cardsData, userData]) => {
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
-        setCards(cardsArray);
+        setCards(cardsData);
       })
       .catch((err) => {
         console.log(err);

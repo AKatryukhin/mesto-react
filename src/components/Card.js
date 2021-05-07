@@ -7,7 +7,7 @@ function Card({card, onCardClick}) {
       <article className='photo'>
         <figure className='photo__element'>
           <button
-            className='photo__trash'
+            className='photo__trash photo__trash_type_visible'
             type='button'
             aria-label='Кнопка для Удаления'
           ></button>
