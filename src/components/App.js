@@ -10,19 +10,15 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  // const [isEditConfirmPopupOpen, setIsEditConfirmPopupOpen] = React.useState(false);
 
    // переменная состояния, значением которой задается ссылка на карточку
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(undefined);
 
 //  обработчики для стейтовых переменных
   function handleCardClick(card) {
     setSelectedCard(card);
-
   }
-  // function handleEditConfirmClick() {
-  //   setIsEditConfirmPopupOpen(true);
-  // }
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -38,7 +34,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(undefined);
   }
 
   return (
@@ -49,7 +45,6 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
-          // onConfirmClick={handleEditConfirmClick}
         />
         <Footer />
         <PopupWithForm
@@ -133,7 +128,6 @@ function App() {
         <PopupWithForm
           name='confirm_form'
           title='Вы уверены?'
-          // isOpen={isEditConfirmPopupOpen}
           onClose={closeAllPopups}
         >
         </PopupWithForm>
