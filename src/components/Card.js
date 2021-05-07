@@ -1,6 +1,6 @@
-function Card(props) {
+function Card({card, onCardClick}) {
   function handleClick() {
-    props.onCardClick(props.card);
+    onCardClick(card);
   }
 
   return (
@@ -12,20 +12,20 @@ function Card(props) {
             aria-label='Кнопка для Удаления'
           ></button>
           <img
-            src={props.link}
-            alt={props.name}
+            src={card.link}
+            alt={card.name}
             className='photo__image'
             onClick={handleClick}
           />
           <figcaption className='photo__title'>
-            <h2 className='photo__name'>{props.name}</h2>
+            <h2 className='photo__name'>{card.name}</h2>
             <div className='photo__like-container'>
               <button
                 className='photo__like'
                 type='button'
                 aria-label='Кнопка для Лайков'
               ></button>
-              <p className='photo__like-total'>{props.likes.length}</p>
+              <p className='photo__like-total'>{card.likes.length}</p>
             </div>
           </figcaption>
         </figure>
