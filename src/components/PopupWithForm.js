@@ -1,6 +1,5 @@
 function PopupWithForm(props) {
   return (
-    <>
       <section
         className={`popup popup_type_${props.name} ${
           props.isOpen ? 'popup_opened' : ''
@@ -26,7 +25,6 @@ function PopupWithForm(props) {
           </form>
         </div>
       </section>
-    </>
   );
 }
 export default PopupWithForm;

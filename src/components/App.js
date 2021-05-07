@@ -19,30 +19,24 @@ function App() {
     setSelectedCard(card);
   }
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setIsEditAvatarPopupOpen(true);
   }
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setIsEditProfilePopupOpen(true);
   }
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setIsAddPlacePopupOpen(true);
   }
 
   // функция закрытия попапов
   function closeAllPopups() {
-    if (selectedCard) {
-      setSelectedCard(false);
-    } else if (isEditProfilePopupOpen) {
-      handleEditProfileClick();
-    } else if (isAddPlacePopupOpen) {
-      handleAddPlaceClick();
-    } else if (isEditAvatarPopupOpen) {
-      handleEditAvatarClick();
-    }
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+    setSelectedCard(false);
   }
 
   return (
-    <>
       <div className='page'>
         <Header />
         <Main
@@ -129,11 +123,8 @@ function App() {
           </fieldset>
         </PopupWithForm>
         <ImagePopup
-          isOpen={selectedCard}
           onClose={closeAllPopups}
           card={selectedCard}
-          link={selectedCard.link}
-          name={selectedCard.name}
         />
 
         <section className='popup popup_type_confirm'>
@@ -196,7 +187,6 @@ function App() {
           </article>
         </template>
       </div>
-    </>
   );
 }
 

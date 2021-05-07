@@ -4,7 +4,6 @@ function Card(props) {
   }
 
   return (
-    <>
       <article className='photo'>
         <figure className='photo__element'>
           <button
@@ -31,7 +30,6 @@ function Card(props) {
           </figcaption>
         </figure>
       </article>
-    </>
   );
 }
 export default Card;

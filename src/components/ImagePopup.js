@@ -1,17 +1,14 @@
-function ImagePopup(card) {
+function ImagePopup({card, onClose}) {
   return (
-    <>
       <section
-        className={`popup popup_type_image ${
-          card.isOpen ? 'popup_opened' : ''
-        }`}
+        className={`popup popup_type_image ${card && 'popup_opened'}`}
       >
         <div className='popup__container-image'>
           <button
             type='button'
             className='popup__close popup__close_type_image'
             aria-label='Кнопка для закрытия окна'
-            onClick={card.onClose}
+            onClick={onClose}
           ></button>
           <figure className='popup__element-image'>
             <img src={card.link} alt={card.name} className='popup__image' />
@@ -21,7 +18,6 @@ function ImagePopup(card) {
           </figure>
         </div>
       </section>
-    </>
   );
 }
 export default ImagePopup;
