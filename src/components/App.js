@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  // const [isEditConfirmPopupOpen, setIsEditConfirmPopupOpen] = React.useState(false);
 
    // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(false);
@@ -17,7 +18,11 @@ function App() {
 //  обработчики для стейтовых переменных
   function handleCardClick(card) {
     setSelectedCard(card);
+
   }
+  // function handleEditConfirmClick() {
+  //   setIsEditConfirmPopupOpen(true);
+  // }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -44,6 +49,7 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          // onConfirmClick={handleEditConfirmClick}
         />
         <Footer />
         <PopupWithForm
@@ -61,6 +67,7 @@ function App() {
               required
               minLength='2'
               maxLength='40'
+              placeholder='имя'
             />
             <span className='popup__input-error name-input-error'></span>
             <input
@@ -71,6 +78,7 @@ function App() {
               required
               minLength='2'
               maxLength='200'
+              placeholder='описание'
             />
             <span className='popup__input-error about-input-error'></span>
           </fieldset>
@@ -122,70 +130,17 @@ function App() {
             <span className='popup__input-error avatar-link-input-error'></span>
           </fieldset>
         </PopupWithForm>
+        <PopupWithForm
+          name='confirm_form'
+          title='Вы уверены?'
+          // isOpen={isEditConfirmPopupOpen}
+          onClose={closeAllPopups}
+        >
+        </PopupWithForm>
         <ImagePopup
           onClose={closeAllPopups}
           card={selectedCard}
         />
-
-        <section className='popup popup_type_confirm'>
-          <div className='popup__container'>
-            <button
-              type='button'
-              className='popup__close'
-              aria-label='Кнопка для закрытия окна редактирования'
-            ></button>
-            <h2 className='popup__title popup__title_type_confirm'>
-              Вы уверены?
-            </h2>
-            <form className='popup__form' name='confirm_form'>
-              <button
-                className='popup__save'
-                type='submit'
-                aria-label='Кнопка Да'
-              >
-                Да
-              </button>
-            </form>
-          </div>
-        </section>
-        <section className='popup popup_type_image'>
-          <div className='popup__container-image'>
-            <button
-              type='button'
-              className='popup__close popup__close_type_image'
-              aria-label='Кнопка для закрытия окна'
-            ></button>
-            <figure className='popup__element-image'>
-              <img src='#' alt='Катринка' className='popup__image' />
-              <figcaption className='popup__title-image'>
-                <h2 className='popup__name-image'>Название</h2>
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-        <template className='photo-template'>
-          <article className='photo'>
-            <figure className='photo__element'>
-              <button
-                className='photo__trash'
-                type='button'
-                aria-label='Кнопка для Удаления'
-              ></button>
-              <img src='#' alt='Катринка' className='photo__image' />
-              <figcaption className='photo__title'>
-                <h2 className='photo__name'>Заголовок</h2>
-                <div className='photo__like-container'>
-                  <button
-                    className='photo__like'
-                    type='button'
-                    aria-label='Кнопка для Лайков'
-                  ></button>
-                  <p className='photo__like-total'>0</p>
-                </div>
-              </figcaption>
-            </figure>
-          </article>
-        </template>
       </div>
   );
 }

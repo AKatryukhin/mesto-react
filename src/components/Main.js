@@ -2,7 +2,7 @@ import React from 'react';
 import api from '../utils/api.js';
 import Card from './Card.js';
 
-function Main(props) {
+function Main({onEditAvatar,onAddPlace,onEditProfile,onCardClick}) {
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
   const [userAvatar, setUserAvatar] = React.useState('');
@@ -24,7 +24,7 @@ function Main(props) {
   return (
       <main className='content container'>
         <section className='profile content__profile container'>
-          <div className='profile__avatar' onClick={props.onEditAvatar}>
+          <div className='profile__avatar' onClick={onEditAvatar}>
             <img
               className='profile__image'
               src={userAvatar}
@@ -38,7 +38,7 @@ function Main(props) {
                 type='button'
                 className='profile__edit'
                 aria-label='Кнопка открытия окна редактирования профиля'
-                onClick={props.onEditProfile}
+                onClick={onEditProfile}
               ></button>
             </div>
             <p className='profile__job'>{userDescription}</p>
@@ -47,7 +47,7 @@ function Main(props) {
             className='profile__add'
             type='button'
             aria-label='Кнопка добавления фото'
-            onClick={props.onAddPlace}
+            onClick={onAddPlace}
           ></button>
         </section>
         <section className='galery content__galery' aria-label='Фото мест'>
@@ -58,7 +58,7 @@ function Main(props) {
                 link={card.link}
                 likes={card.likes}
                 key={card._id}
-                onCardClick={props.onCardClick}
+                onCardClick={onCardClick}
                 card={card}
               />
             );
