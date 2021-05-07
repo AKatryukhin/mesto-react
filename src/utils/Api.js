@@ -1,9 +1,16 @@
-import { handleResponse } from '../utils/utils.js';
 class Api {
   constructor({ address, token }) {
     this._address = address;
     this._token = token;
   }
+
+  _handleResponse(res) {
+    if (!res.ok) {
+      return Promise.reject(`Error: ${res.status}`);
+    }
+    return res.json();
+  };
+  
 
   getProfileInfo() {
     return fetch(`${this._address}/users/me`, {
@@ -11,7 +18,7 @@ class Api {
         authorization: this._token,
         'Content-type': 'application/json',
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   getInitialCards() {
@@ -19,7 +26,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   editProfile(data) {
@@ -33,7 +40,7 @@ class Api {
         name: data.name,
         about: data.about,
       }),
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   editAvatar(link) {
@@ -46,7 +53,7 @@ class Api {
       body: JSON.stringify({
         avatar: link,
       }),
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   addCard(data) {
@@ -60,7 +67,7 @@ class Api {
         name: data.name,
         link: data.link,
       }),
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   removeCard(id) {
@@ -69,7 +76,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   addLike(id) {
@@ -78,7 +85,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 
   removeLike(id) {
@@ -87,7 +94,7 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(handleResponse);
+    }).then(this._handleResponse);
   }
 }
 
