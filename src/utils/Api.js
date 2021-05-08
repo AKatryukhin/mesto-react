@@ -101,4 +101,5 @@ const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-22',
   token: '239868fa-70b9-49a6-a5c6-22cb2b6196e6',
 });
+
 export default api;
