@@ -9,7 +9,7 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     }
     return res.json();
-  };
+  }
   
 
   getProfileInfo() {
