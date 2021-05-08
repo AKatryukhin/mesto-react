@@ -10,7 +10,6 @@ class Api {
     }
     return res.json();
   }
-  
 
   getProfileInfo() {
     return fetch(`${this._address}/users/me`, {
