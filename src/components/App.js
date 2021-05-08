@@ -18,7 +18,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card);
   }
-
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
