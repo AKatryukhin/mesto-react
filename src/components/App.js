@@ -83,6 +83,7 @@ function App() {
           title='Новое место'
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          buttonTitle='Создать'
         >
           <fieldset className='popup__fild'>
             <input
@@ -94,7 +95,6 @@ function App() {
               required
               minLength='2'
               maxLength='30'
-              buttonTitle='Создать'
             />
             <span className='popup__input-error place-input-error'></span>
             <input
@@ -131,6 +131,7 @@ function App() {
           name='confirm_form'
           title='Вы уверены?'
           onClose={closeAllPopups}
+          buttonTitle='Да'
         >
         </PopupWithForm>
         <ImagePopup

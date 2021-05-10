@@ -1,4 +1,4 @@
-function PopupWithForm({name, title, isOpen, onClose, buttonTitle}) {
+function PopupWithForm({name, title, isOpen, onClose, buttonTitle, children}) {
   return (
       <section
         className={`popup popup_type_${name} ${
