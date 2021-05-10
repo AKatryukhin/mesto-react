@@ -51,6 +51,7 @@ function App() {
           title='Редактировать профиль'
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          buttonTitle='Сохранить'
         >
           <fieldset className='popup__fild'>
             <input
@@ -93,6 +94,7 @@ function App() {
               required
               minLength='2'
               maxLength='30'
+              buttonTitle='Создать'
             />
             <span className='popup__input-error place-input-error'></span>
             <input
@@ -111,6 +113,7 @@ function App() {
           title='Обновить аватар'
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
+          buttonTitle='Сохранить'
         >
           <fieldset className='popup__fild'>
             <input
