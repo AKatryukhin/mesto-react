@@ -33,9 +33,6 @@ function handleSubmit(e) {
     about: description,
   });
 }
-
-
-
   return (
     <PopupWithForm
           onSubmit={handleSubmit}
@@ -44,7 +41,6 @@ function handleSubmit(e) {
           isOpen={isOpen}
           onClose={onClose}
           buttonTitle='Сохранить'
-          // value={value}
         >
           <fieldset className='popup__fild'>
             <input
@@ -56,8 +52,7 @@ function handleSubmit(e) {
               minLength='2'
               maxLength='40'
               placeholder='имя'
-              value={name}
-              // onChange={(event) => handleChangeName(event.target.value)}
+              value={name || ''}
               onChange={handleChangeName}
             />
             <span className='popup__input-error name-input-error'></span>
@@ -70,8 +65,7 @@ function handleSubmit(e) {
               minLength='2'
               maxLength='200'
               placeholder='описание'
-              value={description}
-              // onChange={(event) => handleChangeDescription(event.target.value)}
+              value={description || ''}
               onChange={handleChangeDescription}
             />
             <span className='popup__input-error about-input-error'></span>

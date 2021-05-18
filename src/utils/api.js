@@ -28,7 +28,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  editProfile(data) {
+  editProfile({name, about}) {
     return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -36,8 +36,8 @@ class Api {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        name: data.name,
-        about: data.about,
+        name: name,
+        about: about,
       }),
     }).then(this._handleResponse);
   }

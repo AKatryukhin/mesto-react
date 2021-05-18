@@ -54,8 +54,8 @@ React.useEffect(() => {
     setSelectedCard(undefined);
   }
 
-  function handleUpdateUser(data) {
-    api.editProfile(data)
+  function handleUpdateUser({name, about}) {
+    api.editProfile({name, about})
     .then((currentUserData) => {
       setCurrentUser(currentUserData);
       closeAllPopups();
