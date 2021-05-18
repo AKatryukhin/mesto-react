@@ -23,10 +23,27 @@ function handleCardLike(card) {
   
   // Отправляем запрос в API и получаем обновлённые данные карточки
   api.addLike(card._id, !isLiked)
+  .then((newCardWithLike) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCardWithLike : c));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+  // Отправляем запрос в API и получаем обновлённые данные карточки
+  api.removeLike(card._id, isLiked)
   .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+  })
+  .catch((err) => {
+    console.log(err);
   });
 }
+
+
+
+
+
 
 
   return (
