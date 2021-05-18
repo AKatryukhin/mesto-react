@@ -65,7 +65,7 @@ function handleSubmit(e) {
               minLength='2'
               maxLength='200'
               placeholder='описание'
-              value={description || ''}
+              value={description ||''}
               onChange={handleChangeDescription}
             />
             <span className='popup__input-error about-input-error'></span>

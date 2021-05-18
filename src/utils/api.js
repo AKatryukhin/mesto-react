@@ -28,7 +28,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  editProfile({name, about}) {
+  setProfileInfo({name, about}) {
     return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
       headers: {

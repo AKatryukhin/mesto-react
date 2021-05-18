@@ -16,7 +16,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
  // переменная состояния, отвечающая за данные пользователя
-  const [currentUser, setCurrentUser] = React.useState([]);
+  const [currentUser, setCurrentUser] = React.useState('');
 
 React.useEffect(() => {
   api.getProfileInfo()
@@ -55,7 +55,7 @@ React.useEffect(() => {
   }
 
   function handleUpdateUser({name, about}) {
-    api.editProfile({name, about})
+    api.setProfileInfo({name, about})
     .then((currentUserData) => {
       setCurrentUser(currentUserData);
       closeAllPopups();
