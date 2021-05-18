@@ -21,30 +21,19 @@ function handleCardLike(card) {
   // Снова проверяем, есть ли уже лайк на этой карточке
   const isLiked = card.likes.some(i => i._id === currentUser._id);
   
-  // Отправляем запрос в API и получаем обновлённые данные карточки
-  api.addLike(card._id, !isLiked)
-  .then((newCardWithLike) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCardWithLike : c));
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-  // Отправляем запрос в API и получаем обновлённые данные карточки
-  api.removeLike(card._id, isLiked)
-  .then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+ // Отправляем запросы в API и получаем обновлённые данные карточки
+Promise.all([api.addLike(card._id, !isLiked), api.removeLike(card._id, isLiked)])
+      .then(([newCardWithLike, newCardWithoutLike]) => {
+        if(!isLiked) {
+        setCards((state) => state.map((c) => c._id === card._id ? newCardWithLike : c));
+        } else {
+        setCards((state) => state.map((c) => c._id === card._id ? newCardWithoutLike : c));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 }
-
-
-
-
-
-
 
   return (
       <main className='content container'>
