@@ -35,6 +35,18 @@ Promise.all([api.addLike(card._id, !isLiked), api.removeLike(card._id, isLiked)]
       });
 }
 
+function handleCardDelete(card) {
+ // Отправляем запрос в API и 
+      api.removeCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter(
+          (c) => c._id !== card._id 
+          ));
+        })
+      .catch((err) => {
+        console.log(err);
+      });
+}
   return (
       <main className='content container'>
         <section className='profile content__profile container'>
@@ -72,6 +84,7 @@ Promise.all([api.addLike(card._id, !isLiked), api.removeLike(card._id, isLiked)]
                 onCardClick={onCardClick}
                 card={card}
                 onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
             );
           })}
