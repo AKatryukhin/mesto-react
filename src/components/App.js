@@ -6,7 +6,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
-
+import EditProfilePopup from './EditProfilePopup.js';
 
 
 function App() {
@@ -54,6 +54,18 @@ React.useEffect(() => {
     setSelectedCard(undefined);
   }
 
+  function handleUpdateUser(data) {
+    api.editProfile(data)
+    .then((currentUserData) => {
+      setCurrentUser(currentUserData);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
@@ -65,38 +77,7 @@ React.useEffect(() => {
           onCardClick={handleCardClick}
         />
         <Footer />
-        <PopupWithForm
-          name='prof_form'
-          title='Редактировать профиль'
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          buttonTitle='Сохранить'
-        >
-          <fieldset className='popup__fild'>
-            <input
-              type='text'
-              className='popup__input popup__input_type_name'
-              id='name-input'
-              name='name'
-              required
-              minLength='2'
-              maxLength='40'
-              placeholder='имя'
-            />
-            <span className='popup__input-error name-input-error'></span>
-            <input
-              type='text'
-              className='popup__input popup__input_type_descr'
-              id='about-input'
-              name='about'
-              required
-              minLength='2'
-              maxLength='200'
-              placeholder='описание'
-            />
-            <span className='popup__input-error about-input-error'></span>
-          </fieldset>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
         <PopupWithForm
           name='place_form'
           title='Новое место'

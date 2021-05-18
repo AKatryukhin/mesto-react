@@ -36,7 +36,7 @@ Promise.all([api.addLike(card._id, !isLiked), api.removeLike(card._id, isLiked)]
 }
 
 function handleCardDelete(card) {
- // Отправляем запрос в API и 
+ // Отправляю запрос в API и получаю массив, исключив из него удалённую карточку
       api.removeCard(card._id)
       .then(() => {
         setCards((state) => state.filter(
