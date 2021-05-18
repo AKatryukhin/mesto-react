@@ -1,25 +1,21 @@
 import React from 'react';
 import api from '../utils/api.js';
 import Card from './Card.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main({onEditAvatar,onAddPlace,onEditProfile,onCardClick}) {
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [userAvatar, setUserAvatar] = React.useState('');
   const [cards, setCards] = React.useState([]);
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
-    Promise.all([api.getInitialCards(), api.getProfileInfo()])
-      .then(([cardsData, userData]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-        setCards(cardsData);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+    api.getInitialCards()
+    .then((cardsData) => {
+      setCards(cardsData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
 
   return (
       <main className='content container'>
@@ -27,13 +23,13 @@ function Main({onEditAvatar,onAddPlace,onEditProfile,onCardClick}) {
           <div className='profile__avatar' onClick={onEditAvatar}>
             <img
               className='profile__image'
-              src={userAvatar}
+              src={currentUser.avatar}
               alt='Картинка Аватар'
             />
           </div>
           <div className='profile__info'>
             <div className='profile__editcase'>
-              <h1 className='profile__name'>{userName}</h1>
+              <h1 className='profile__name'>{currentUser.name}</h1>
               <button
                 type='button'
                 className='profile__edit'
@@ -41,7 +37,7 @@ function Main({onEditAvatar,onAddPlace,onEditProfile,onCardClick}) {
                 onClick={onEditProfile}
               ></button>
             </div>
-            <p className='profile__job'>{userDescription}</p>
+            <p className='profile__job'>{currentUser.about}</p>
           </div>
           <button
             className='profile__add'

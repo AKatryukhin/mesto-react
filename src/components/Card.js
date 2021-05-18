@@ -1,4 +1,17 @@
+import React from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
 function Card({card, onCardClick}) {
+
+  const currentUser = React.useContext(CurrentUserContext);
+
+// Определяем, являемся ли мы владельцем текущей карточки
+const isOwn = card.owner._id === currentUser._id;
+
+// Создаём переменную, которую после зададим в `className` для кнопки удаления
+const cardDeleteButtonClassName = (
+  `photo__trash ${isOwn ? 'photo__trash_type_visible' : ''}`
+); 
   function handleClick() {
     onCardClick(card);
   }
@@ -7,7 +20,7 @@ function Card({card, onCardClick}) {
       <article className='photo'>
         <figure className='photo__element'>
           <button
-            className='photo__trash photo__trash_type_visible'
+            className={cardDeleteButtonClassName}
             type='button'
             aria-label='Кнопка для Удаления'
           ></button>

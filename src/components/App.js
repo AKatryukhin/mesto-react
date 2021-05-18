@@ -4,12 +4,30 @@ import Footer from './landing/Footer.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
+import api from '../utils/api.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+
+
 
 function App() {
+
   // переменные состояния, отвечающие за видимость попапов
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+ // переменная состояния, отвечающая за данные пользователя
+  const [currentUser, setCurrentUser] = React.useState([]);
+
+React.useEffect(() => {
+  api.getProfileInfo()
+    .then((currentUserData) => {
+      setCurrentUser(currentUserData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
 
    // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(undefined);
@@ -37,6 +55,7 @@ function App() {
   }
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Header />
         <Main
@@ -139,6 +158,7 @@ function App() {
           card={selectedCard}
         />
       </div>
+      </CurrentUserContext.Provider>
   );
 }
 
