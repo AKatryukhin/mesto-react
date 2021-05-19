@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 
 function App() {
@@ -65,6 +66,18 @@ React.useEffect(() => {
     });
   }
 
+  function handleUpdateAvatar({avatar}) {
+    api.setUserAvatar({avatar})
+      .then(({avatar}) => {
+        currentUser.avatar = avatar;
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+  
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -108,25 +121,7 @@ React.useEffect(() => {
             <span className='popup__input-error link-input-error'></span>
           </fieldset>
         </PopupWithForm>
-        <PopupWithForm
-          name='avatar_form'
-          title='Обновить аватар'
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          buttonTitle='Сохранить'
-        >
-          <fieldset className='popup__fild'>
-            <input
-              type='url'
-              className='popup__input popup__input_type_descr popup__input-avatar'
-              id='avatar-link-input'
-              name='link'
-              placeholder='Ссылка на аватар'
-              required
-            />
-            <span className='popup__input-error avatar-link-input-error'></span>
-          </fieldset>
-        </PopupWithForm>
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
         <PopupWithForm
           name='confirm_form'
           title='Вы уверены?'

@@ -42,7 +42,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  editAvatar(link) {
+  setUserAvatar({avatar}) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -50,7 +50,7 @@ class Api {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        avatar: link,
+        avatar: avatar,
       }),
     }).then(this._handleResponse);
   }
