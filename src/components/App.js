@@ -18,7 +18,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     React.useState(false);
   // переменная состояния, отвечающая за данные пользователя
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
 
   const [cards, setCards] = React.useState([]);
 
@@ -86,7 +86,7 @@ function App() {
   }, []);
 
   // переменная состояния, значением которой задается ссылка на карточку
-  const [selectedCard, setSelectedCard] = React.useState(undefined);
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   //  обработчики для стейтовых переменных
   function handleCardClick(card) {
@@ -107,7 +107,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard(undefined);
+    setSelectedCard(null);
   }
 
   function handleUpdateUser({ name, about }) {
@@ -126,7 +126,7 @@ function App() {
     api
       .setUserAvatar({ avatar })
       .then(({ avatar }) => {
-        currentUser.avatar = avatar;
+        setCurrentUser({avatar: avatar});
         closeAllPopups();
       })
       .catch((err) => {
@@ -138,7 +138,7 @@ function App() {
     api
       .addCard({ name, link })
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
