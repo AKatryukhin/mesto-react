@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../Card.js';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import Card from './Card.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main({
   onEditAvatar,
