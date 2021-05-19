@@ -66,7 +66,6 @@ function handleCardDelete(card) {
       });
 }
 
-
 React.useEffect(() => {
   api.getProfileInfo()
     .then((currentUserData) => {
@@ -76,7 +75,6 @@ React.useEffect(() => {
       console.log(err);
     });
   }, []);
-
 
    // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(undefined);
@@ -128,7 +126,7 @@ React.useEffect(() => {
     function handleAddPlaceSubmit({name, link}) {
       api.addCard({name, link})
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([...cards, newCard]);
         closeAllPopups();
       })
       .catch((err) => {

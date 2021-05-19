@@ -55,8 +55,6 @@ function handleChangeLink(evt) {
           </fieldset>
         </PopupWithForm>
   )
-
-
 }
 
 export default AddPlacePopup;
