@@ -55,7 +55,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  addCard(data) {
+  addCard({name, link}) {
     return fetch(`${this._address}/cards`, {
       method: 'POST',
       headers: {
@@ -63,8 +63,8 @@ class Api {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: name,
+        link: link,
       }),
     }).then(this._handleResponse);
   }

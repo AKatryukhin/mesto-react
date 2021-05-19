@@ -8,7 +8,7 @@ import api from '../utils/api.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
-
+import AddPlacePopup from './AddPlacePopup.js';
 
 function App() {
 
@@ -18,6 +18,54 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
  // переменная состояния, отвечающая за данные пользователя
   const [currentUser, setCurrentUser] = React.useState('');
+
+  const [cards, setCards] = React.useState([]);
+
+  React.useEffect(() => {
+    api.getInitialCards()
+    .then((cardsData) => {
+      setCards(cardsData);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
+
+function handleCardLike(card) {
+  // Снова проверяем, есть ли уже лайк на этой карточке
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+   // Отправляем запросы в API и получаем обновлённые данные карточки
+  if(!isLiked) {
+    api.addLike(card._id, !isLiked)
+    .then((newCardWithLike) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCardWithLike : c));
+    })
+    .catch((err) => {
+      console.log(err);
+    });} else {
+      api.removeLike(card._id, isLiked)
+      .then((newCardWithoutLike) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCardWithoutLike : c));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    }
+}
+
+function handleCardDelete(card) {
+ // Отправляю запрос в API и получаю массив, исключив из него удалённую карточку
+      api.removeCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter(
+          (c) => c._id !== card._id 
+          ));
+        })
+      .catch((err) => {
+        console.log(err);
+      });
+}
+
 
 React.useEffect(() => {
   api.getProfileInfo()
@@ -76,51 +124,34 @@ React.useEffect(() => {
         console.log(err);
       });
     }
-  
 
+    function handleAddPlaceSubmit({name, link}) {
+      api.addCard({name, link})
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Header />
         <Main
+          cards={cards}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
-        <PopupWithForm
-          name='place_form'
-          title='Новое место'
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          buttonTitle='Создать'
-        >
-          <fieldset className='popup__fild'>
-            <input
-              type='text'
-              className='popup__input popup__input_type_name'
-              id='place-input'
-              name='name'
-              placeholder='Название'
-              required
-              minLength='2'
-              maxLength='30'
-            />
-            <span className='popup__input-error place-input-error'></span>
-            <input
-              type='url'
-              className='popup__input popup__input_type_descr'
-              id='link-input'
-              name='link'
-              placeholder='Ссылка на картинку'
-              required
-            />
-            <span className='popup__input-error link-input-error'></span>
-          </fieldset>
-        </PopupWithForm>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
         <PopupWithForm
           name='confirm_form'
