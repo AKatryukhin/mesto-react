@@ -28,7 +28,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  setProfileInfo({name, about}) {
+  setProfileInfo({ name, about }) {
     return fetch(`${this._address}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -42,7 +42,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  setUserAvatar({avatar}) {
+  setUserAvatar({ avatar }) {
     return fetch(`${this._address}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -55,7 +55,7 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  addCard({name, link}) {
+  addCard({ name, link }) {
     return fetch(`${this._address}/cards`, {
       method: 'POST',
       headers: {
