@@ -37,9 +37,8 @@ function App() {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     // Отправляем запросы в API и получаем обновлённые данные карточки
-    if (!isLiked) {
       api
-        .addLike(card._id, !isLiked)
+        .changeLikeCardStatus(card._id, isLiked)
         .then((newCardWithLike) => {
           setCards((state) =>
             state.map((c) => (c._id === card._id ? newCardWithLike : c))
@@ -48,20 +47,7 @@ function App() {
         .catch((err) => {
           console.log(err);
         });
-    } else {
-      api
-        .removeLike(card._id, isLiked)
-        .then((newCardWithoutLike) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCardWithoutLike : c))
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }
-
+      }
   function handleCardDelete(card) {
     // Отправляю запрос в API и получаю массив, исключив из него удалённую карточку
     api

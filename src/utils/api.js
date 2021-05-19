@@ -78,23 +78,14 @@ class Api {
     }).then(this._handleResponse);
   }
 
-  addLike(id) {
-    return fetch(`${this._address}/cards/likes/${id}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._token,
-      },
-    }).then(this._handleResponse);
-  }
-
-  removeLike(id) {
-    return fetch(`${this._address}/cards/likes/${id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._token,
-      },
-    }).then(this._handleResponse);
-  }
+  changeLikeCardStatus(id, isLiked) {
+  return fetch(`${this._address}/cards/likes/${id}`, {
+    method: isLiked  ? 'DELETE' : 'PUT',
+    headers: {
+      authorization: this._token,
+    },
+  }).then(this._handleResponse);
+}
 }
 
 const api = new Api({
