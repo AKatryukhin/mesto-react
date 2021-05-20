@@ -39,9 +39,9 @@ function App() {
     // Отправляем запросы в API и получаем обновлённые данные карточки
       api
         .changeLikeCardStatus(card._id, isLiked)
-        .then((newCardWithLike) => {
+        .then((newCardSomeLike) => {
           setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCardWithLike : c))
+            state.map((c) => (c._id === card._id ? newCardSomeLike : c))
           );
         })
         .catch((err) => {
