@@ -43,7 +43,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           minLength='2'
           maxLength='30'
           onChange={handleChangeName}
-          value={name || ''}
+          value={name}
         />
         <span className='popup__input-error place-input-error'></span>
         <input
@@ -54,7 +54,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           placeholder='Ссылка на картинку'
           required
           onChange={handleChangeLink}
-          value={link || ''}
+          value={link}
         />
         <span className='popup__input-error link-input-error'></span>
       </fieldset>

@@ -8,10 +8,11 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   // После загрузки текущего пользователя из API
   // его данные будут использованы в управляемых компонентах.
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+  React.useEffect((currentUser) => {
+    if (currentUser) {
+      setName(currentUser.name);
+      setDescription(currentUser.about);
+  }}, [currentUser]);
 
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -51,7 +52,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           minLength='2'
           maxLength='40'
           placeholder='имя'
-          value={name || ''}
+          value={name}
           onChange={handleChangeName}
         />
         <span className='popup__input-error name-input-error'></span>
@@ -64,7 +65,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           minLength='2'
           maxLength='200'
           placeholder='описание'
-          value={description || ''}
+          value={description}
           onChange={handleChangeDescription}
         />
         <span className='popup__input-error about-input-error'></span>
