@@ -37,17 +37,17 @@ function App() {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     // Отправляем запросы в API и получаем обновлённые данные карточки
-      api
-        .changeLikeCardStatus(card._id, isLiked)
-        .then((newCardSomeLike) => {
-          setCards((state) =>
-            state.map((c) => (c._id === card._id ? newCardSomeLike : c))
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      }
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCardSomeLike) => {
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCardSomeLike : c))
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   function handleCardDelete(card) {
     // Отправляю запрос в API и получаю массив, исключив из него удалённую карточку
     api
@@ -134,40 +134,42 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className='page'>
-        <Header />
-        <Main
-          cards={cards}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
-        <Footer />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-        />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
-        />
-        <PopupWithForm
-          name='confirm_form'
-          title='Вы уверены?'
-          onClose={closeAllPopups}
-          buttonTitle='Да'
-        ></PopupWithForm>
-        <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+      <div className='background'>
+        <div className='page'>
+          <Header />
+          <Main
+            cards={cards}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
+            onCardDelete={handleCardDelete}
+          />
+          <Footer />
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlaceSubmit}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
+          />
+          <PopupWithForm
+            name='confirm_form'
+            title='Вы уверены?'
+            onClose={closeAllPopups}
+            buttonTitle='Да'
+          ></PopupWithForm>
+          <ImagePopup onClose={closeAllPopups} card={selectedCard} />
+        </div>
       </div>
     </CurrentUserContext.Provider>
   );
