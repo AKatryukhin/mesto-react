@@ -2,9 +2,14 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+ 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddPlace({ name, link });
+    onAddPlace({ name, link },
+      () => {
+        setName('');
+        setLink('');
+      });
   }
 
   const [name, setName] = React.useState('');

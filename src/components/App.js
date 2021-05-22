@@ -74,13 +74,7 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
-// переменная состояния, для очистки форм
-  const [isFormReset, setIsFormReset] = React.useState(false);
-
   //  обработчики для стейтовых переменных
-  function handleFormReset() {
-    setIsFormReset(true);
-  }
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -114,12 +108,12 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar({ avatar }) {
+  function handleUpdateAvatar({ avatar }, onSuccess) {
     api
       .setUserAvatar({ avatar })
       .then((currentUserData) => {
         setCurrentUser(currentUserData);
-        handleFormReset();
+        onSuccess();
         closeAllPopups();
       })
       .catch((err) => {
@@ -127,11 +121,12 @@ function App() {
       });
   }
 
-  function handleAddPlaceSubmit({ name, link }) {
+  function handleAddPlaceSubmit({ name, link }, onSuccess) {
     api
       .addCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
+        onSuccess();
         closeAllPopups();
       })
       .catch((err) => {
@@ -168,7 +163,6 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
-            isHandleFormReset={isFormReset}
           />
           <PopupWithForm
             name='confirm_form'
