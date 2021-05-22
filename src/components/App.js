@@ -74,7 +74,13 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
+// переменная состояния, для очистки форм
+  const [isFormReset, setIsFormReset] = React.useState(false);
+
   //  обработчики для стейтовых переменных
+  function handleFormReset() {
+    setIsFormReset(true);
+  }
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -113,6 +119,7 @@ function App() {
       .setUserAvatar({ avatar })
       .then((currentUserData) => {
         setCurrentUser(currentUserData);
+        handleFormReset();
         closeAllPopups();
       })
       .catch((err) => {
@@ -161,6 +168,7 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
             onUpdateAvatar={handleUpdateAvatar}
+            isHandleFormReset={isFormReset}
           />
           <PopupWithForm
             name='confirm_form'
