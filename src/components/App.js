@@ -90,11 +90,11 @@ React.useEffect(() => {
   window.addEventListener('click', handleOverlayClose);
 
   return () => {
-    window.removeEventListener('keydown', handleEscClose);
     window.removeEventListener('click', handleOverlayClose);
+    window.removeEventListener('keydown', handleEscClose);
+
   };
 }, []);
-
 
   //  обработчики для стейтовых переменных
   function handleCardClick(card) {
