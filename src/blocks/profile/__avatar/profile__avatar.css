@@ -18,6 +18,7 @@
   height: 100%;
   background-repeat: no-repeat;
   background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
 }
 
 .profile__avatar:hover::after {
