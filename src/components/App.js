@@ -80,21 +80,34 @@ function handleEscClose(evt) {
 evt.key === ESC_KEYCODE && closeAllPopups();
 }
 
+//функция закрытия попапов по оверлей
+function handleOverlayClose(evt) {
+  evt.target.classList.contains('popup_opened') && closeAllPopups();
+  }
+
+React.useEffect(() => {
+  window.addEventListener('keydown', handleEscClose);
+  window.addEventListener('click', handleOverlayClose);
+
+  return () => {
+    window.removeEventListener('keydown', handleEscClose);
+    window.removeEventListener('click', handleOverlayClose);
+  };
+}, []);
+
+
   //  обработчики для стейтовых переменных
   function handleCardClick(card) {
     setSelectedCard(card);
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    document.addEventListener('keydown', handleEscClose);
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    document.addEventListener('keydown', handleEscClose);
   }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-    document.addEventListener('keydown', handleEscClose);
   }
 
   // функция закрытия попапов
@@ -103,7 +116,6 @@ evt.key === ESC_KEYCODE && closeAllPopups();
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
-    document.removeEventListener('keydown', handleEscClose);
   }
 
   function handleUpdateUser({ name, about }) {
