@@ -9,6 +9,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
+import { ESC_KEYCODE } from '../utils/constants';
 
 function App() {
   // переменные состояния, отвечающие за видимость попапов
@@ -74,18 +75,26 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
+//функция закрытия попапов по Escape
+function handleEscClose(evt) {
+evt.key === ESC_KEYCODE && closeAllPopups();
+}
+
   //  обработчики для стейтовых переменных
   function handleCardClick(card) {
     setSelectedCard(card);
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
+    document.addEventListener('keydown', handleEscClose);
   }
 
   // функция закрытия попапов
@@ -94,6 +103,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard(null);
+    document.removeEventListener('keydown', handleEscClose);
   }
 
   function handleUpdateUser({ name, about }) {
