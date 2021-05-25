@@ -75,17 +75,19 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
-//функция закрытия попапов по Escape
-function handleEscClose(evt) {
-evt.key === ESC_KEYCODE && closeAllPopups();
-}
-
-//функция закрытия попапов по оверлей
-function handleOverlayClose(evt) {
-  evt.target.classList.contains('popup_opened') && closeAllPopups();
-  }
 
 React.useEffect(() => {
+
+  //функция закрытия попапов по Escape
+  function handleEscClose(evt) {
+  evt.key === ESC_KEYCODE && closeAllPopups();
+  }
+  
+  //функция закрытия попапов по оверлей
+  function handleOverlayClose (evt) {
+    evt.target.classList.contains('popup_opened') && closeAllPopups();
+    }
+
   window.addEventListener('keydown', handleEscClose);
   window.addEventListener('click', handleOverlayClose);
 
