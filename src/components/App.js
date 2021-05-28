@@ -75,7 +75,6 @@ function App() {
   // переменная состояния, значением которой задается ссылка на карточку
   const [selectedCard, setSelectedCard] = React.useState(null);
 
-
 React.useEffect(() => {
 
   //функция закрытия попапов по Escape
